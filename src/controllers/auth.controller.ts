@@ -15,13 +15,20 @@ class AuthController {
         res.redirect('/login');
     }
 
-    static async login(req: Request, res: Response) {
+    static async login(req: any, res: Response) {
         const account = await AuthService.checkAccount(req.body);
         if (!account) {
             res.redirect('/login');
             return;
         }
+        req.session.userLogin = account;
         res.redirect('/home');
+    }
+
+    static logout(req: Request, res: Response) {
+        req.session.destroy(() => {
+            res.redirect('/login');
+        });
     }
 }
 

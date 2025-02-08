@@ -19,6 +19,9 @@ class AuthService {
             where: {
                 email: email,
                 password: password
+            },
+            relations: {
+                role: true
             }
         });
         return user;
