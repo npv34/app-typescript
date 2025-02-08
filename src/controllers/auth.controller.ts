@@ -1,22 +1,27 @@
 import { Request, Response } from 'express';
-import { AppDataSource } from 'src/database/data-source';
-import { User } from '@entities/User';
-const userRepository = AppDataSource.getRepository(User)
+import AuthService from '@services/auth.service';
 
 class AuthController {
     static showFormRegister(req: Request, res: Response) {
         res.render('auth/register.ejs');
     }
 
+    static showFormLogin(req: Request, res: Response) {
+        res.render('auth/login.ejs');
+    }
+
     static async register(req: Request, res: Response) {
-        const {email, password, confirmPassword} = req.body;
-        const u: User = new User();
-        u.email = email;
-        u.password = password;
-        u.isActive = true;
-        // use DataMaper
-        await userRepository.save(u);
-        res.end("Register success");
+        await AuthService.regisierUser(req.body)
+        res.redirect('/login');
+    }
+
+    static async login(req: Request, res: Response) {
+        const account = await AuthService.checkAccount(req.body);
+        if (!account) {
+            res.redirect('/login');
+            return;
+        }
+        res.redirect('/home');
     }
 }
 

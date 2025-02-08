@@ -8,6 +8,6 @@ export const AppDataSource = new DataSource({
     database: "myapp",
     logging: true,
     synchronize: true,
-    dropSchema: true,
+    dropSchema: false,
     entities: ["src/entities/**.ts"]
 })
