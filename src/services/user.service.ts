@@ -38,6 +38,41 @@ class UserService {
         await userRepository.save(u);
     }
 
+    static async findUseById(id: number): Promise<any> {
+        return await userRepository.findOne({
+            where: {
+                id: id
+            },
+            relations: {
+                role: true
+            }
+        });
+    }
+
+    static async edit(id: number, data: any): Promise<any> {
+        const {email, roleId} = data;
+        const currentUser = await userRepository.findOne({
+            where: {
+                id: id
+            }, 
+            relations: {
+                role: true
+            }
+        })
+        if(currentUser) {
+            currentUser.email = email;
+            const roleUser : any = await roleRepository.findOne({
+                where: {
+                    id: roleId
+                }
+            })
+            if (roleUser) {
+                currentUser.role = roleUser;
+            }
+            await userRepository.save(currentUser);
+        }
+    }
+
 }
 
 export default UserService;

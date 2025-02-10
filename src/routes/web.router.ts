@@ -17,6 +17,8 @@ router.get('/users/:id/delete',checkAuth, checkPermission, UserController.delete
 router.get('/logout', checkAuth, AuthController.logout);
 router.get('/users/create', checkAuth, UserController.showFormCreate);
 router.post('/users/store', checkAuth, UserController.createUser);
+router.get('/users/:id/edit',checkAuth, checkPermission, UserController.showFormEdit);
+router.post('/users/:id/edit',checkAuth, checkPermission, UserController.editUser);
 
 
 export default router;

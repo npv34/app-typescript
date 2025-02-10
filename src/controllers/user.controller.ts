@@ -21,6 +21,18 @@ class UserController {
         await UserService.store(req.body);
         res.redirect('/users');
     }
+
+    static async showFormEdit(req: any, res: Response) {
+        const roles = await RoleService.getAllRoles();
+        const userEdit = await UserService.findUseById(req.params.id);
+        console.log(userEdit);
+        res.render('users/edit.ejs', {roles: roles, userEdit: userEdit});
+    }
+
+    static async editUser(req: any, res: Response) {
+        await UserService.edit(req.params.id, req.body);
+        res.redirect('/users');
+    }
 }
 
 export default UserController;
