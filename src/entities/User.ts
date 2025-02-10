@@ -1,5 +1,6 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm"
-import { Role } from "./Role"
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm"
+import { Role } from "./Role";
+import { Post } from "./Post";
 
 @Entity({name: "users"})
 export class User {
@@ -16,5 +17,8 @@ export class User {
     isActive: boolean
 
     @ManyToOne(() => Role, (role: Role) => role.users)
-    role: Role
+    role?: Role
+
+    @OneToMany(() => Post, (post: Post) => post.auth)
+    posts?: Post[]
 }
