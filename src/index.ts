@@ -1,6 +1,7 @@
 import express, { Express, NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
+import cors from "cors";
 import router from "@routers/web.router";
 import "reflect-metadata";
 import { AppDataSource } from "./database/data-source";
@@ -11,7 +12,7 @@ dotenv.config();
 const app: Express = express();
 const port = process.env.PORT || 3000;
 
-
+app.use(cors())
 app.use(express.static("public"));
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
@@ -26,6 +27,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }));
+
+
 
 app.use(function(req: any, res: any, next: NextFunction) {
     res.locals.userLogin = req.session.userLogin;
