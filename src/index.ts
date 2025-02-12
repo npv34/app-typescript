@@ -5,6 +5,7 @@ import router from "@routers/web.router";
 import "reflect-metadata";
 import { AppDataSource } from "./database/data-source";
 import session from "express-session";
+import apiRouter from "@routers/api.router";
 dotenv.config();
 
 const app: Express = express();
@@ -40,6 +41,7 @@ AppDataSource.initialize()
     })
 
 app.use(router);
+app.use("/api/v1", apiRouter);
 
 app.listen(port, () => {
   console.log(`[server]: Server is running at http://localhost:${port}`);

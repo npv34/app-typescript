@@ -1,6 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany } from "typeorm"
 import { Role } from "./Role";
 import { Post } from "./Post";
+import { Token } from "./Token";
 
 @Entity({name: "users"})
 export class User {
@@ -21,4 +22,8 @@ export class User {
 
     @OneToMany(() => Post, (post: Post) => post.auth)
     posts?: Post[]
+
+    @OneToMany(() => Token, (token: Token) => token.user)
+    tokens?: Token[]
+
 }

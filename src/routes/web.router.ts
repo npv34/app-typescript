@@ -4,6 +4,7 @@ import AuthController from '@controllers/auth.controller';
 import UserController from '@controllers/user.controller';
 import { checkAuth } from 'src/middlewares/auth.midd';
 import { checkPermission } from 'src/middlewares/permission.midd';
+import TokenController from '@controllers/token.controller';
 
 const router: Router = express.Router();
 
@@ -19,6 +20,9 @@ router.get('/users/create', checkAuth, UserController.showFormCreate);
 router.post('/users/store', checkAuth, UserController.createUser);
 router.get('/users/:id/edit',checkAuth, checkPermission, UserController.showFormEdit);
 router.post('/users/:id/edit',checkAuth, checkPermission, UserController.editUser);
+
+router.get('/api-keys',checkAuth, TokenController.index);
+router.post('/api-keys/store',checkAuth, TokenController.store);
 
 
 export default router;
