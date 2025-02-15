@@ -12,6 +12,9 @@ export class Token {
     @Column({type: "varchar"})
     name: string
 
+    @Column({type: "varchar"})
+    active: string
+
     @ManyToOne(() => User, (user: User) => user.tokens)
     user?: User;
 }

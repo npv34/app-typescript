@@ -22,6 +22,7 @@ class TokenService {
         const newToken = new Token();
         newToken.name = keyName;
         newToken.key = uuidv4();
+        newToken.active = 'active';
         const user = await UserService.findUseById(userLogin.id)
         newToken.user = user;
         await tokenRepository.save(newToken);
