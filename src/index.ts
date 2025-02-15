@@ -2,6 +2,8 @@ import express, { Express, NextFunction, Request, Response } from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import cors from "cors";
+import flash from "connect-flash";
+import cookieParser from "cookie-parser";
 import router from "@routers/web.router";
 import "reflect-metadata";
 import { AppDataSource } from "./database/data-source";
@@ -20,6 +22,7 @@ app.set("views", "./src/views");
 // configure bodyParser
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser('secret'));
 
 // configure session
 app.use(session({
@@ -28,10 +31,13 @@ app.use(session({
     saveUninitialized: true
 }));
 
+app.use(flash());
+
 
 
 app.use(function(req: any, res: any, next: NextFunction) {
     res.locals.userLogin = req.session.userLogin;
+    res.locals.message = req.flash();
     next();
   });
 

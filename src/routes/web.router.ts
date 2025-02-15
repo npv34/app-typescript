@@ -23,6 +23,7 @@ router.post('/users/:id/edit',checkAuth, checkPermission, UserController.editUse
 
 router.get('/api-keys',checkAuth, TokenController.index);
 router.post('/api-keys/store',checkAuth, TokenController.store);
+router.get('/api-keys/:id/delete',checkAuth, TokenController.deleteToken);
 
 
 export default router;

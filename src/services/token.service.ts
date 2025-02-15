@@ -35,6 +35,10 @@ class TokenService {
             }
         });
     }
+
+    static async delete(id: number): Promise<any> {
+        return await tokenRepository.delete(id);
+    }
 }
 
 export default TokenService;
