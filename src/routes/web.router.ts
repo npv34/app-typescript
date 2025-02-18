@@ -16,10 +16,10 @@ router.post('/login', AuthController.login);
 router.get('/users',checkAuth, UserController.index);
 router.get('/users/:id/delete',checkAuth, checkPermission, UserController.delete);
 router.get('/logout', checkAuth, AuthController.logout);
-router.get('/users/create', checkAuth, UserController.showFormCreate);
-router.post('/users/store', checkAuth, UserController.createUser);
-router.get('/users/:id/edit',checkAuth, checkPermission, UserController.showFormEdit);
-router.post('/users/:id/edit',checkAuth, checkPermission, UserController.editUser);
+router.get('/users/create', checkAuth, checkPermission, UserController.showFormCreate);
+router.post('/users/store', checkAuth, checkPermission, UserController.createUser);
+router.get('/users/:id/edit', checkAuth, checkPermission, UserController.showFormEdit);
+router.post('/users/:id/edit', checkAuth, checkPermission, UserController.editUser);
 
 router.get('/api-keys',checkAuth, TokenController.index);
 router.post('/api-keys/store',checkAuth, TokenController.store);
